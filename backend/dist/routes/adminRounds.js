@@ -1,0 +1,18 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.adminRoundsRouter = void 0;
+const express_1 = require("express");
+const adminRoundController_1 = require("../controllers/adminRoundController");
+const requireAuth_1 = require("../middleware/requireAuth");
+exports.adminRoundsRouter = (0, express_1.Router)();
+exports.adminRoundsRouter.use(requireAuth_1.requireAuth);
+exports.adminRoundsRouter.use((0, requireAuth_1.requireRole)(["admin"]));
+exports.adminRoundsRouter.post("/rounds", adminRoundController_1.adminRoundController.createRound);
+exports.adminRoundsRouter.post("/rounds/:roundId/members", adminRoundController_1.adminRoundController.addMembers);
+exports.adminRoundsRouter.patch("/rounds/:roundId", adminRoundController_1.adminRoundController.updateRound);
+exports.adminRoundsRouter.post("/rounds/:roundId/close", adminRoundController_1.adminRoundController.closeRound);
+exports.adminRoundsRouter.delete("/rounds/:roundId/bids/:bidId", adminRoundController_1.adminRoundController.deleteBid);
+exports.adminRoundsRouter.get("/rounds", adminRoundController_1.adminRoundController.listRounds);
+exports.adminRoundsRouter.get("/rounds/:roundId", adminRoundController_1.adminRoundController.getRound);
+exports.adminRoundsRouter.get("/rounds/:roundId/bids", adminRoundController_1.adminRoundController.listBids);
+exports.adminRoundsRouter.get("/rounds/:roundId/winner", adminRoundController_1.adminRoundController.getWinner);

@@ -1,0 +1,14 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.memberRoundsRouter = void 0;
+const express_1 = require("express");
+const memberRoundController_1 = require("../controllers/memberRoundController");
+const memberBidController_1 = require("../controllers/memberBidController");
+const requireAuth_1 = require("../middleware/requireAuth");
+exports.memberRoundsRouter = (0, express_1.Router)();
+exports.memberRoundsRouter.use(requireAuth_1.requireAuth);
+exports.memberRoundsRouter.use((0, requireAuth_1.requireRole)(["member"]));
+exports.memberRoundsRouter.get("/rounds", memberRoundController_1.memberRoundController.listRounds);
+exports.memberRoundsRouter.get("/rounds/:roundId", memberRoundController_1.memberRoundController.getRound);
+exports.memberRoundsRouter.get("/rounds/:roundId/bids", memberRoundController_1.memberRoundController.listBids);
+exports.memberRoundsRouter.post("/rounds/:roundId/bids", memberBidController_1.memberBidController.placeBid);
